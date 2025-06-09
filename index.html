@@ -1,80 +1,95 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Notebook Wrestling</title>
+  <title>Wrasslin'</title>
   <style>
     body {
-      background: #fdfdfd url('https://www.transparenttextures.com/patterns/lined-paper.png');
-      font-family: 'Comic Sans MS', cursive, sans-serif;
+      font-family: "Comic Sans MS", "Marker Felt", cursive;
+      background-color: #fefefe;
       text-align: center;
       padding: 20px;
+      background-image: url('https://www.transparenttextures.com/patterns/blueprint.png');
     }
     .character {
       display: inline-block;
-      width: 200px;
-      height: 200px;
-      border: 2px dashed #555;
       margin: 10px;
-      background-color: #fff;
-      font-size: 16px;
-      line-height: 1.2;
-      white-space: pre-wrap;
     }
-    .buttons button {
-      margin: 5px;
-      padding: 10px;
-      font-size: 16px;
-      font-family: inherit;
+    img {
+      width: 200px;
+      height: auto;
+      border: 3px dashed #000;
+      background: #fff;
     }
-    #output {
+    .move-box {
       margin-top: 20px;
-      font-size: 18px;
-      min-height: 60px;
+      padding: 20px;
+      background: #f0f0f0;
+      border: 2px dashed #aaa;
+      font-size: 1.2em;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    button {
+      font-size: 1.2em;
+      padding: 10px 20px;
+      margin: 20px;
+      background-color: #fff;
+      border: 2px solid #000;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <h1>📝 Notebook Wrestling 🥊</h1>
-  <div>
-    <div class="character" id="windigo">
-      🤺 Windigo
-      
-      /|\
-      
-      / \
-    </div>
-    <div class="character" id="shrimpy">
-      🧍 Shrimpy McDee
-      
-      \o/
-      
-      / \
-    </div>
-  </div>
+  <h1>Wrasslin': Windigo vs Shrimpy Mcdee</h1>
   
-  <div class="buttons">
-    <button onclick="playerMove('Windigo', 'Shrimpy McDee')">Windigo: Paper Slam</button>
-    <button onclick="playerMove('Windigo', 'Shrimpy McDee', 'spitball attack')">Windigo: Spitball Attack</button>
-    <button onclick="playerMove('Shrimpy McDee', 'Windigo')">Shrimpy: Sneaky Elbow</button>
-    <button onclick="playerMove('Shrimpy McDee', 'Windigo', 'lunchbox throw')">Shrimpy: Lunchbox Throw</button>
+  <div class="character">
+    <h3>Windigo</h3>
+    <img id="windigo-img" src="windigo.png" alt="Windigo">
   </div>
 
-  <div id="output">Choose your nonsense move.</div>
+  <div class="character">
+    <h3>Shrimpy Mcdee</h3>
+    <img id="shrimpy-img" src="shrimpy.png" alt="Shrimpy Mcdee">
+  </div>
+
+  <div class="move-box" id="move-box">
+    Click a button to start the madness!
+  </div>
+
+  <button onclick="doMove('Windigo')">Windigo Attack!</button>
+  <button onclick="doMove('Shrimpy')">Shrimpy Attack!</button>
 
   <script>
-    function playerMove(attacker, target, move) {
-      const moves = move ? [move] : [
-        'slaps the desk and yells a confusing battle cry',
-        'draws a fake mustache mid-fight',
-        'spins in a circle and falls down',
-        'unleashes a fearsome glue stick jab'
-      ];
+    const moves = {
+      Windigo: [
+        "Windigo headbutts a desk and screams 'I AM THE DESK!'",
+        "Windigo dropkicks a ghost into the crowd!",
+        "Windigo summons thunder with his armpit!",
+        "Windigo spins like a hurricane and launches a boot!",
+        "Windigo eats a crayon and roars with wisdom!"
+      ],
+      Shrimpy: [
+        "Shrimpy Mcdee pokes Windigo and yells 'BOOP!'",
+        "Shrimpy jumps off a chair into a karate slap!",
+        "Shrimpy tells a haunting bedtime story and Windigo flinches.",
+        "Shrimpy distracts with math homework and then backflips!",
+        "Shrimpy performs the forbidden triple-wiggle!"
+      ]
+    };
 
-      const chosenMove = moves[Math.floor(Math.random() * moves.length)];
-      const result = `${attacker} uses ${chosenMove} on ${target}! ${target} looks mildly confused.`;
-      document.getElementById('output').innerText = result;
+    function doMove(player) {
+      const moveList = moves[player];
+      const moveText = moveList[Math.floor(Math.random() * moveList.length)];
+      document.getElementById("move-box").textContent = moveText;
+
+      const imgId = player === "Windigo" ? "windigo-img" : "shrimpy-img";
+      document.getElementById(imgId).style.borderColor = "#ff00ff";
+      setTimeout(() => {
+        document.getElementById(imgId).style.borderColor = "#000";
+      }, 300);
     }
   </script>
 </body>
